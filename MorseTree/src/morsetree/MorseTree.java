@@ -1,21 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package morsetree;
+
+import estructura.ArbolBinario;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 
 /**
  *
  * @author johan_p9pyxb1
  */
-public class MorseTree {
+public class MorseTree extends Application{
 
-    /**
-     * @param args the command line arguments
-     */
+    public static final HashMap<String,List<String>> mapCodeMorse = ArbolBinario.codesMorse();
     public static void main(String[] args) {
-        // TODO code application logic here
+        ArbolBinario.crearArbolMorse(mapCodeMorse).anchura();
+        launch(args);
     }
-    
+     @Override
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/vista/MorseT.fxml"));
+        Scene scene = new Scene(root);
+        stage.setTitle("ENCRIPTADOR");
+        stage.setScene(scene);
+        stage.show();
+    }
 }

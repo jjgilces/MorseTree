@@ -1,25 +1,8 @@
-/*
- * Empty Stylesheet file.
- */
-
-.mainFxmlClass {
-    --fx-background-image: url("https://www.google.com/images/srpr/logo3w.png");
-}
-.root {
- 
-}
-.content {
-    -fx-background-color: rgb(168, 218, 252);
-}
-
-
-
 /* File style.css */
 .button {
   
     -fx-padding: 15 15 15 15;
-    -fx-pref-width: 130px;
-    -fx-pref-height: 10px;
+    -fx-pref-width: 150px;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
     -fx-background-color: 
@@ -32,13 +15,6 @@
     -fx-font-size: 1em;
 }
 
-.text-field {
-  
-    -fx-pref-width: 200px;
-    -fx-pref-height: 40px;
-    -fx-background-radius: 8;
-    -fx-font-size: 1em;
-}
 .button:hover {
     -fx-background-color: 
         linear-gradient(from 0% 93% to 0% 100%, #4071C4 0%, #4091C4 100%),
@@ -77,3 +53,4 @@
         #d86e3a,
         radial-gradient(center 50% 50%, radius 100%, #ea7f4b, #c54e2c);
 }
+
