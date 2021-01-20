@@ -10,6 +10,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import morsetree.MorseTree;
+import static morsetree.MorseTree.arbolBinarioMorse;
 
 /**
  *
@@ -18,13 +20,13 @@ import javafx.scene.text.Text;
 public class Arbol {
 
     private Pane root;
-    private ArbolBinario<String> morseTree;
+    private ArbolBinario<String> morseTree= arbolBinarioMorse;
     public static final double RADIUS = 15;
     public static final double VGAP = 60;
 
-    public Arbol(Pane root, ArbolBinario<String> bt) {
+    public Arbol(Pane root) {
         this.root = root;
-        morseTree = bt;
+
      
     }
 
@@ -32,12 +34,10 @@ public class Arbol {
         return root;
     }
 
-
-
     public void mostrarArbol() {
         root.getChildren().clear();
         if (morseTree.getRoot() != null) {
-            mostrarArbol(morseTree.getRoot(), 500 , VGAP, 250);
+            mostrarArbol(morseTree.getRoot(), MorseTree.ventana/2 , VGAP, MorseTree.ventana/4);
         }
     }
 

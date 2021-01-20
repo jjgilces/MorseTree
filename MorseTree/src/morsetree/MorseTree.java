@@ -20,8 +20,10 @@ import javafx.stage.Stage;
 public class MorseTree extends Application{
 
     public static final HashMap<String,List<String>> mapCodeMorse = ArbolBinario.codesMorse();
+    public static  ArbolBinario<String> arbolBinarioMorse = new ArbolBinario<>();
+     public static final int ventana = 1005;
     public static void main(String[] args) {
-        ArbolBinario.crearArbolMorse(mapCodeMorse).anchura();
+        arbolBinarioMorse= ArbolBinario.crearArbolMorse(mapCodeMorse);
         launch(args);
     }
      @Override

@@ -1,72 +1,76 @@
 package Hilos;
 
 import static controlador.Arbol.RADIUS;
+import static controlador.Arbol.VGAP;
+import estructura.ArbolBinario;
+import estructura.Nodo;
+import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
+import morsetree.MorseTree;
 
 /**
  *
- * @author PC
+ * @author Johan
  */
 public class Camino implements Runnable {
 
-    private double x;
-    private double y;
-    private double hGap;
+    private double x,y,vgap,hGap;
     private String code;
-    private int size;
-    private double vgap;
     private Pane pane;
 
     public Camino(double vgap, String code, int size, Pane pane) {
-        this.pane=pane;
+        this.pane= pane;
         this.y = vgap;
         this.code = code;
-        this.size = size;
-        this.x = pane.getWidth() / 2;
-        this.hGap = pane.getWidth() / 4;
+        this.x = MorseTree.ventana / 2;
+        this.hGap = MorseTree.ventana / 4;
         this.vgap = vgap;
     }
 
     @Override
     public void run() {
-        Platform.runLater(() -> {
-            Circle circle2 = new Circle(x, y, RADIUS);
+        Circle circle2 = new Circle(x, y, RADIUS);
+        Platform.runLater(() -> {       
             circle2.setFill(Color.ORANGE);
             circle2.setStroke(Color.BLACK);
+            System.out.println();
             pane.getChildren().add(circle2);
         });
-        try {
+        try {       
             Thread.sleep(600);
-            for (int i = 0; i < code.length(); i++) {
-                if (code.charAt(i) == '.') {
+            Queue<String> codigos = ArbolBinario.decodificarMorse(code);
+            System.out.println(codigos);
+            while(!codigos.isEmpty()){
+                String simbolo=codigos.poll();
+                if (simbolo.equals(".")) {
                     moveRight();
-                } else if (code.charAt(i) == '-') {
+                } else if (simbolo.equals("-")) {
                     moveLeft();
-                } else {
-                    returnToRoot(i);
-                    i++;
-                }
+                } 
                 Platform.runLater(    
                         new Runnable() {
-            @Override public void run() {
-                Circle circle2 = new Circle(x, y, RADIUS);
-                circle2.setFill(Color.ORANGE);
-                circle2.setStroke(Color.BLACK);
-                pane.getChildren().add(circle2);
-            }});
+                @Override public void run() {
+                 Line linea   =new Line(x, y , x+hGap, y+vgap);
+                 linea.setStroke(Color.RED);
+                pane.getChildren().add(linea);
+                 }});
                 Thread.sleep(600);
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(Camino.class.getName()).log(Level.SEVERE, null, ex);
             Thread.currentThread().interrupt();
         }
+
         cleanView();
     }
 
@@ -84,18 +88,10 @@ public class Camino implements Runnable {
         playMusic("/recursos/Raya.mpeg");
     }
 
-    private void returnToRoot(int i) throws InterruptedException {
-        if (i + 1 < code.length() && code.charAt(i + 1) != ' ') {
-            x = pane.getWidth() / 2;
-            y = vgap;
-            hGap = pane.getWidth() / 4;
-            Thread.sleep(600);
-        }
-        cleanView();
-    }
 
     private void cleanView() {
-        Platform.runLater(()    -> pane.getChildren().remove(size, pane.getChildren().size()));
+      Platform.runLater(()-> pane.getChildren().remove(131, pane.getChildren().size()));
+
     }
 
     private void playMusic(String musicFile) {
@@ -105,4 +101,26 @@ public class Camino implements Runnable {
         mediaPlayer.setVolume(10);
     }
 
+    
+   /* private void mostrarArbol(Nodo<String> actual, double x, double y, double hGap) {
+        Circle circulo = new Circle(x, y, RADIUS);
+        circulo.setFill(Color.LIGHTSKYBLUE);
+        if (actual.getLeft() != null) {
+            root.getChildren().add(new Line(x - hGap, y + VGAP, x, y));
+            mostrarArbol(actual.getLeft(), x - hGap, y + VGAP, hGap / 2);
+        }
+        if (actual.getRight() != null) {
+           new Line
+            root.getChildren().add(new Line(x + hGap, y + VGAP, x, y));
+            mostrarArbol(actual.getRight(), x + hGap, y + VGAP, hGap / 2);
+        }
+        circulo.setStroke(Color.BLACK);
+        root.getChildren().addAll(circulo, new Text(x -4 , y + 4, actual.getData()));
+    }
+     public void mostrarArbol() {
+        root.getChildren().clear();
+        if (morseTree.getRoot() != null) {
+            mostrarArbol(morseTree.getRoot(), MorseTree.ventana/2 , VGAP, MorseTree.ventana/4);
+        }
+    }*/
 }

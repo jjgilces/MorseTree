@@ -15,10 +15,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import morsetree.MorseTree;
+import static morsetree.MorseTree.arbolBinarioMorse;
+import static morsetree.MorseTree.mapCodeMorse;
 
 
 public class ArbolBinario<E> {
     Nodo<E> root;
+
+    public ArbolBinario() {
+    }
     
 
     public boolean isEmpty() {
@@ -58,39 +64,36 @@ public class ArbolBinario<E> {
         }
         return false;
     } 
-    
-    public int height() {
-        return height(root);
-    }
-
-    private int height(Nodo<E> n) {
-        if (n == null) {
-            return 0;
-        }
-        return 1 + Math.max(height(n.left), height(n.right));
-    }
 
     public Nodo<E> getRoot() {
         return root;
     }
  
-    public static String codificarMorse(List<String> codigos, ArbolBinario<String> arbol){
-        return arbol.codificarMorse(codigos);
-    }
-    private String codificarMorse(List<String> codigos){
-         Nodo<String> q=(Nodo<String>) this.root;
-         String cadena="";
+    public static String codificarMorse(List<String> codigos){
+        Nodo<String> q=(Nodo<String>) arbolBinarioMorse.root;
+        String cadena="";
         for(String c: codigos){  
             if(c.equals(".")) q = q.right;
             else   q = q.left; 
             if(q==null) return cadena;
-            if(!q.getData().equals("") && q!=root){
+            if(!q.getData().equals("") && q!=arbolBinarioMorse.root){
                 cadena += q.getData();
-                q = (Nodo<String>) this.root;
+                q = (Nodo<String>) arbolBinarioMorse.root;
             }  
         }
         return cadena;
-    }  
+    }
+     public static Queue<String> decodificarMorse(String frase){
+        Queue<String> caminos = new LinkedList<>();
+        String c=frase.toUpperCase();
+        for (int x=0;x<frase.length();x++){
+           List<String> signos =  mapCodeMorse.get(Character.toString(c.charAt(x)));
+           if(signos==null) caminos.offer(" ");
+           else for(String l:signos)  caminos.offer(l);
+        }     
+        return caminos;
+    }
+
 
     public static ArbolBinario<String> crearArbolMorse(HashMap<String, List<String>> mapa){
         ArbolBinario<String> morse = new ArbolBinario<>();
@@ -126,47 +129,7 @@ public class ArbolBinario<E> {
           return false;
     }
 
-    public void anchura() {
-        if (!isEmpty()) {
-            Queue<Nodo<E>> cola = new LinkedList<>();
-            cola.offer(root);
-            while (!cola.isEmpty()) {
-                Nodo<E> n = cola.poll();
-                System.out.print(n.getData() +" ");
-                if (n.left != null) {
-                    cola.offer(n.left);
-                }
-                if (n.right != null) {
-                    cola.offer(n.right);
-                }
-            }
-        }
-        System.out.println("");
-    }
-    private void mostrarArbol(final Pane vb, final Nodo<E> n, final int nivel) {
-        HBox hb = new HBox();
-        hb.setTranslateY(70 * nivel);
-        vb.getChildren().add(hb);
-        final Circle cir = new Circle(20);
-        cir.setFill(Color.CHOCOLATE);
-        final StackPane st = new StackPane();
-        st.getChildren().add(cir);
-        if (n != null) {
-            final Label lbl = new Label(n.getData().toString());
-            lbl.setTextFill(Color.WHITE);
-            st.getChildren().add(lbl);
-            mostrarArbol(vb, n.left, nivel + 1);
-            mostrarArbol(vb, n.right, nivel + 1);
-        } else {
-
-            cir.setOpacity(0);
-            if (nivel < height() - 1) {
-                mostrarArbol(vb, null, nivel + 1);
-                mostrarArbol(vb, null, nivel + 1);
-            }
-        }
-
-    }
+   
 
     public static HashMap<String,List<String>> codesMorse() {
         HashMap<String,List<String>> CodeMorse= new HashMap<>();
@@ -177,13 +140,13 @@ public class ArbolBinario<E> {
                 String[] parts = linea.split("\\|");
                 for(int i =1;i<parts.length;i++) valor.add(parts[i]);
                 CodeMorse.put( parts[0],valor);
-            }    
-           
+            }         
         } catch (IOException ex) {
             Logger.getLogger(ArbolBinario.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(CodeMorse);
         return CodeMorse;
     }
+    
 }
 
