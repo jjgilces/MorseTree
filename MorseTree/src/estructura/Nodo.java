@@ -10,7 +10,7 @@ package estructura;
  * @author Johan
  */
 public class Nodo<E> {
-        public E data;
+        private E data;
         protected Nodo<E> left;
         protected Nodo<E> right;
 
@@ -20,7 +20,7 @@ public class Nodo<E> {
 
         @Override
         public String toString() {
-            return  data +"";
+            return  getData() +"";
         }
 
     public Nodo<E> getLeft() {

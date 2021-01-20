@@ -31,7 +31,7 @@ public class ArbolBinario<E> {
 
     private Nodo<E> searchNode(E data, Nodo<E> n) {
         if (n == null) return n; //No preguntar con isEmpty 
-        else if (n.data.equals(data)) return n;
+        else if (n.getData().equals(data)) return n;
         else {
             Nodo<E> nl = searchNode(data, n.left);
             if (nl != null)return nl;
@@ -84,8 +84,8 @@ public class ArbolBinario<E> {
             if(c.equals(".")) q = q.right;
             else   q = q.left; 
             if(q==null) return cadena;
-            if(!q.data.equals("") && q!=root){
-                cadena += q.data;
+            if(!q.getData().equals("") && q!=root){
+                cadena += q.getData();
                 q = (Nodo<String>) this.root;
             }  
         }
@@ -114,12 +114,12 @@ public class ArbolBinario<E> {
               String signo= camino.get(i);
               if (".".equals(signo)) {
                   if (nd.right == null) nd.right = new Nodo<>("");
-                  if (i == camino.size()-1)  { nd.right.data = letra ;return true; }
+                  if (i == camino.size()-1)  { nd.right.setData(letra) ;return true; }
                   nd = nd.right;
               }
               else if (signo.equals("-")) {
                   if (nd.left == null)nd.left = new Nodo<>("");
-                  if (i == camino.size()-1) {nd.left.data = letra; return true;}
+                  if (i == camino.size()-1) {nd.left.setData(letra); return true;}
                   nd = nd.left;
               }            
           }
@@ -132,7 +132,7 @@ public class ArbolBinario<E> {
             cola.offer(root);
             while (!cola.isEmpty()) {
                 Nodo<E> n = cola.poll();
-                System.out.print(n.data +" ");
+                System.out.print(n.getData() +" ");
                 if (n.left != null) {
                     cola.offer(n.left);
                 }
@@ -152,7 +152,7 @@ public class ArbolBinario<E> {
         final StackPane st = new StackPane();
         st.getChildren().add(cir);
         if (n != null) {
-            final Label lbl = new Label(n.data.toString());
+            final Label lbl = new Label(n.getData().toString());
             lbl.setTextFill(Color.WHITE);
             st.getChildren().add(lbl);
             mostrarArbol(vb, n.left, nivel + 1);

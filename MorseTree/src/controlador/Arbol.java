@@ -54,7 +54,7 @@ public class Arbol {
             mostrarArbol(actual.getRight(), x + hGap, y + VGAP, hGap / 2);
         }
         circulo.setStroke(Color.BLACK);
-        root.getChildren().addAll(circulo, new Text(x -4 , y + 4, actual.data));
+        root.getChildren().addAll(circulo, new Text(x -4 , y + 4, actual.getData()));
     }
 
 //     private void buscar(String frase) {

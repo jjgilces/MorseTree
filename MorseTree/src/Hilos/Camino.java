@@ -36,15 +36,12 @@ public class Camino implements Runnable {
 
     @Override
     public void run() {
-        Platform.runLater(
-            new Runnable() {
-            @Override public void run() {
-                Circle circle2 = new Circle(x, y, RADIUS);
-                circle2.setFill(Color.ORANGE);
-                circle2.setStroke(Color.BLACK);
-                pane.getChildren().add(circle2);
-            }}
-        );
+        Platform.runLater(() -> {
+            Circle circle2 = new Circle(x, y, RADIUS);
+            circle2.setFill(Color.ORANGE);
+            circle2.setStroke(Color.BLACK);
+            pane.getChildren().add(circle2);
+        });
         try {
             Thread.sleep(600);
             for (int i = 0; i < code.length(); i++) {
