@@ -1,10 +1,4 @@
-/*
- * Empty Stylesheet file.
- */
 
-.mainFxmlClass {
-    --fx-background-image: url("https://www.google.com/images/srpr/logo3w.png");
-}
 .root {
  
 }
@@ -12,14 +6,12 @@
     -fx-background-color: rgb(168, 218, 252);
 }
 
-
-
 /* File style.css */
 .button {
   
-    -fx-padding: 15 15 15 15;
-    -fx-pref-width: 130px;
-    -fx-pref-height: 10px;
+    -fx-padding: 20 20 20 20;
+    -fx-pref-width: 150px;
+    -fx-pref-height: 30px;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
     -fx-background-color: 
@@ -39,6 +31,8 @@
     -fx-background-radius: 8;
     -fx-font-size: 1em;
 }
+
+
 .button:hover {
     -fx-background-color: 
         linear-gradient(from 0% 93% to 0% 100%, #4071C4 0%, #4091C4 100%),
@@ -49,6 +43,7 @@
 
 .button Text{
     -fx-fill: white;
+    -fx-font-size: 3em;
     -fx-effect: dropshadow( gaussian , #a30000 , 0,0,0,2 );
 }
 

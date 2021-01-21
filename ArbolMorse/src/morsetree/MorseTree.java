@@ -24,11 +24,11 @@ import javafx.stage.Stage;
  */
 public class MorseTree extends Application{
 
-    public static final HashMap<String,List<String>> mapCodeMorse = ArbolBinario.codesMorse();
+    public static final HashMap<String,List<String>> mapaCodigoMorse = ArbolBinario.codesMorse();
     public static  ArbolBinario<String> arbolBinarioMorse = new ArbolBinario<>();
-     public static final int ventana = 1005;
+     public static final int DIMENSION = 1005;
     public static void main(String[] args) {
-        arbolBinarioMorse= ArbolBinario.crearArbolMorse(mapCodeMorse);
+        arbolBinarioMorse= ArbolBinario.crearArbolMorse(mapaCodigoMorse);
         launch(args);
     }
      @Override

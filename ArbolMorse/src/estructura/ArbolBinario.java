@@ -10,7 +10,7 @@ import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static morsetree.MorseTree.arbolBinarioMorse;
-import static morsetree.MorseTree.mapCodeMorse;
+import static morsetree.MorseTree.mapaCodigoMorse;
 
 
 public class ArbolBinario<E> {
@@ -80,7 +80,7 @@ public class ArbolBinario<E> {
         Queue<String> caminos = new LinkedList<>();
         String c=frase.toUpperCase();
         for (int x=0;x<frase.length();x++){
-           List<String> signos =  mapCodeMorse.get(Character.toString(c.charAt(x)));
+           List<String> signos =  mapaCodigoMorse.get(Character.toString(c.charAt(x)));
            if(signos==null) caminos.offer(" ");
            else for(String l:signos)  caminos.offer(l);
            caminos.offer(Character.toString(c.charAt(x)));
