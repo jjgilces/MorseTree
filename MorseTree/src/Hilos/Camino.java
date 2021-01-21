@@ -37,14 +37,18 @@ public class Camino implements Runnable {
         this.vgap = vgap;
     }
 
+  public Camino( Pane pane) {
+        this.pane= pane;
+        this.y = vgap;
+        this.x = MorseTree.ventana / 2;
+        this.hGap = MorseTree.ventana / 4;
+    }
+    
+
     @Override
-    public void run() {
-        Circle circle2 = new Circle(x, y, RADIUS);
-        Platform.runLater(() -> {       
-            circle2.setFill(Color.ORANGE);
-            circle2.setStroke(Color.BLACK);
-            System.out.println();
-            pane.getChildren().add(circle2);
+    public void run() {  
+        Platform.runLater(() -> {
+            pintarCirculo(Color.RED);
         });
         try {       
             Thread.sleep(600);
@@ -53,17 +57,13 @@ public class Camino implements Runnable {
             while(!codigos.isEmpty()){
                 String simbolo=codigos.poll();
                 if (simbolo.equals(".")) {
-                    moveRight();
+                    Platform.runLater(()-> moverPunto());
                 } else if (simbolo.equals("-")) {
-                    moveLeft();
-                } 
-                Platform.runLater(    
-                        new Runnable() {
-                @Override public void run() {
-                 Line linea   =new Line(x, y , x+hGap, y+vgap);
-                 linea.setStroke(Color.RED);
-                pane.getChildren().add(linea);
-                 }});
+                    Platform.runLater(()-> moverRaya() );
+                } else {
+                   Platform.runLater(()-> pintarCirculo(Color.GREEN));
+                   volverIncio();      
+                }
                 Thread.sleep(600);
             }
         } catch (InterruptedException ex) {
@@ -88,10 +88,8 @@ public class Camino implements Runnable {
         playMusic("/recursos/Raya.mpeg");
     }
 
-
     private void cleanView() {
       Platform.runLater(()-> pane.getChildren().remove(131, pane.getChildren().size()));
-
     }
 
     private void playMusic(String musicFile) {
@@ -101,26 +99,38 @@ public class Camino implements Runnable {
         mediaPlayer.setVolume(10);
     }
 
-    
-   /* private void mostrarArbol(Nodo<String> actual, double x, double y, double hGap) {
-        Circle circulo = new Circle(x, y, RADIUS);
-        circulo.setFill(Color.LIGHTSKYBLUE);
-        if (actual.getLeft() != null) {
-            root.getChildren().add(new Line(x - hGap, y + VGAP, x, y));
-            mostrarArbol(actual.getLeft(), x - hGap, y + VGAP, hGap / 2);
-        }
-        if (actual.getRight() != null) {
-           new Line
-            root.getChildren().add(new Line(x + hGap, y + VGAP, x, y));
-            mostrarArbol(actual.getRight(), x + hGap, y + VGAP, hGap / 2);
-        }
-        circulo.setStroke(Color.BLACK);
-        root.getChildren().addAll(circulo, new Text(x -4 , y + 4, actual.getData()));
+     private void volverIncio(){
+        x =  MorseTree.ventana / 2;
+        y = vgap;
+        hGap = MorseTree.ventana / 4;
+        cleanView();
+     }
+     
+     private void moverPunto() {
+         playMusic("/recursos/Punto.mpeg");
+        Line linea   =new Line(x, y , x+hGap, y+vgap);
+        linea.setStroke(Color.RED);
+        pane.getChildren().add(linea);
+         x += hGap;
+        y += vgap;
+        hGap /= 2;
+  
     }
-     public void mostrarArbol() {
-        root.getChildren().clear();
-        if (morseTree.getRoot() != null) {
-            mostrarArbol(morseTree.getRoot(), MorseTree.ventana/2 , VGAP, MorseTree.ventana/4);
-        }
-    }*/
+     
+    private void moverRaya(){
+        playMusic("/recursos/Raya.mpeg");
+        Line linea   =new Line(x - hGap, y + VGAP, x, y);
+        linea.setStroke(Color.RED);
+        pane.getChildren().add(linea);  
+        x -= hGap;
+        y += vgap;
+        hGap /= 2;
+    }
+     
+    private void pintarCirculo(Color c){            
+       Circle circle2 = new Circle(x, y, RADIUS);
+       circle2.setFill(c);
+       System.out.println("PINTANDO ERDE");
+       pane.getChildren().add(circle2);
+    }
 }

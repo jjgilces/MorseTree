@@ -41,7 +41,7 @@
                         <Insets top="15.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#traducir" text="Traducir" textAlignment="RIGHT" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#traducir" onKeyPressed="#traducir" text="Traducir" textAlignment="RIGHT" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="10.0" top="7.0" />
                      </HBox.margin>

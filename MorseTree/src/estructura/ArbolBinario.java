@@ -90,6 +90,7 @@ public class ArbolBinario<E> {
            List<String> signos =  mapCodeMorse.get(Character.toString(c.charAt(x)));
            if(signos==null) caminos.offer(" ");
            else for(String l:signos)  caminos.offer(l);
+           caminos.offer(Character.toString(c.charAt(x)));
         }     
         return caminos;
     }

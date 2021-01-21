@@ -1,6 +1,7 @@
 
 package morsetree;
 
+import Hilos.Alerta;
 import estructura.ArbolBinario;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +33,13 @@ public class MorseTree extends Application{
         Scene scene = new Scene(root);
         stage.setTitle("ENCRIPTADOR");
         stage.setScene(scene);
+        stage.setOnCloseRequest(e->{
+            Optional<ButtonType> result = Alerta.confirmation();
+            if(result.get()==ButtonType.OK){            
+                Platform.exit();
+            }else{
+                e.consume();
+            }});
         stage.show();
     }
 }

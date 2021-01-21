@@ -14,7 +14,7 @@ import javafx.scene.control.Alert;
  */
 public class Alerta {
     public static Optional<ButtonType> confirmation(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("CONFIRMATION ALERT");
         alert.setHeaderText("CERRAR EL PROGRAMA");
         alert.setContentText("SI DA CLIC EN ACEPTAR, TERMINARÁ EL PROGRAMA \n ¿ESTÁ SEGURO QUE DESEA CONTINUAR?");
@@ -37,8 +37,7 @@ public class Alerta {
         alert.showAndWait();
     }
     
-    
-    
+   
     
      public static void Confirmar(String mensaje, Alert.AlertType e) {
         Alert alert = new Alert(e);
