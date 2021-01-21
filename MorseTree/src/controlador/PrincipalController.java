@@ -1,7 +1,6 @@
 
 package controlador;
 
-import Hilos.Alerta;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -39,10 +38,11 @@ public class PrincipalController implements Initializable {
             stage.setScene(scene);
             stage.setOnCloseRequest(e->{
             Optional<ButtonType> result = Alerta.confirmation();
-            if(result.get()==ButtonType.OK){            
+            if(result.get()!=ButtonType.OK){            
                 Platform.exit();
+                 e.consume();
             }else{
-                e.consume();
+                Platform.exit();
             }});
             stage.show();
         } catch (IOException ex) {

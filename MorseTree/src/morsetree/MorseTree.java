@@ -1,11 +1,15 @@
 
 package morsetree;
 
-import Hilos.Alerta;
+import controlador.Alerta;
 import estructura.ArbolBinario;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -28,18 +32,23 @@ public class MorseTree extends Application{
         launch(args);
     }
      @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/vista/MorseT.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("ENCRIPTADOR");
-        stage.setScene(scene);
-        stage.setOnCloseRequest(e->{
-            Optional<ButtonType> result = Alerta.confirmation();
-            if(result.get()==ButtonType.OK){            
-                Platform.exit();
-            }else{
-                e.consume();
-            }});
-        stage.show();
+    public void start(Stage stage)  {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/vista/Principal.fxml"));
+            Scene scene = new Scene(root);
+            stage.setTitle("ENCRIPTADOR");
+            stage.setScene(scene);
+            stage.setOnCloseRequest(e->{
+                Optional<ButtonType> result = Alerta.confirmation();
+                if(result.get()==ButtonType.OK){
+                    Platform.exit();
+                }});
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MorseTree.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (NoSuchElementException ex) {
+            System.err.println("Cierre de ventana emergente"+ex);;
+        }
     }
 }

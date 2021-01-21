@@ -1,21 +1,19 @@
-package Hilos;
+package controlador;
 
 import static controlador.Arbol.RADIUS;
 import static controlador.Arbol.VGAP;
+import static controlador.PlayMusic.reproducir;
 import estructura.ArbolBinario;
-import estructura.Nodo;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
 import morsetree.MorseTree;
 
 /**
@@ -74,31 +72,11 @@ public class Camino implements Runnable {
         cleanView();
     }
 
-    private void moveRight() {
-        x += hGap;
-        y += vgap;
-        hGap /= 2;
-        playMusic("/recursos/Punto.mpeg");
-    }
-
-    private void moveLeft() {
-        x -= hGap;
-        y += vgap;
-        hGap /= 2;
-        playMusic("/recursos/Raya.mpeg");
-    }
-
     private void cleanView() {
       Platform.runLater(()-> pane.getChildren().remove(131, pane.getChildren().size()));
     }
 
-    private void playMusic(String musicFile) {
-        Media sound = new Media(this.getClass().getResource(musicFile).toExternalForm());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setVolume(10);
-    }
-
+   
      private void volverIncio(){
         x =  MorseTree.ventana / 2;
         y = vgap;
@@ -107,7 +85,7 @@ public class Camino implements Runnable {
      }
      
      private void moverPunto() {
-         playMusic("/recursos/Punto.mpeg");
+       reproducir("Punto.mpeg");
         Line linea   =new Line(x, y , x+hGap, y+vgap);
         linea.setStroke(Color.RED);
         pane.getChildren().add(linea);
@@ -118,7 +96,7 @@ public class Camino implements Runnable {
     }
      
     private void moverRaya(){
-        playMusic("/recursos/Raya.mpeg");
+       reproducir("Raya.mpeg");
         Line linea   =new Line(x - hGap, y + VGAP, x, y);
         linea.setStroke(Color.RED);
         pane.getChildren().add(linea);  

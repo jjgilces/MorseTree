@@ -9,13 +9,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import morsetree.MorseTree;
 import static morsetree.MorseTree.arbolBinarioMorse;
 import static morsetree.MorseTree.mapCodeMorse;
 

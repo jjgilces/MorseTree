@@ -1,7 +1,6 @@
 
 package controlador;
 
-import Hilos.Camino;
 import static controlador.Arbol.VGAP;
 import estructura.ArbolBinario;
 import java.net.URL;
@@ -36,14 +35,15 @@ public class MorseTController implements Initializable {
        
     }    
     
-    public void traducir(){    
+    public void traducir(){ 
+        System.out.println("texto");
+        System.out.println(txtTraducir.getText());
+        if(txtTraducir.getText().equals("")) Alerta.mostrarAlerta("Por favor ingrese una frase", "No ha ingresado");
+        else{
         int size = paneArbol.getChildren().size();
-        String textoMorse= ArbolBinario.codificarMorse(mapCodeMorse.get("A"));
-        System.out.println("texto morse");
-        System.out.println(textoMorse);
-        System.out.println();
         Thread thread = new Thread(new Camino(VGAP,txtTraducir.getText(),size,paneArbol));
         thread.start();
+        }
     }
 
 }
