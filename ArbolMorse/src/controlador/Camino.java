@@ -41,12 +41,12 @@ public class Camino implements Runnable {
 
     @Override
     public void run() {
-        Platform.runLater(() -> {
+        try {
+              Platform.runLater(() -> {
             Circle circuloInicio = new Circle(x, y, RadioCirculo);
         circuloInicio.setFill(Color.RED);
         pane.getChildren().add(circuloInicio);
         });
-        try {
             Thread.sleep(500);
             Queue<String> codigos = ArbolBinario.decodificarMorse(code);
             System.out.println(codigos);
@@ -81,7 +81,7 @@ public class Camino implements Runnable {
     }
 
     private void cleanView() {
-        Platform.runLater(() -> pane.getChildren().remove(131, pane.getChildren().size()));
+        Platform.runLater(() -> pane.getChildren().remove(122, pane.getChildren().size()));
     }
 
     private void volverIncio() {
@@ -115,7 +115,6 @@ public class Camino implements Runnable {
     private void encontrado(){
       Circle circle2 = new Circle(x, y, RadioCirculo);
       circle2.setFill(Color.GREEN);
-      System.out.println("hola");
       pane.getChildren().add(circle2);
         
     }
